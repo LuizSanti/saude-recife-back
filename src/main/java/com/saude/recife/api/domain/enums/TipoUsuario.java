@@ -1,4 +1,4 @@
-package com.saude.recife.api.domain.model.enums;
+package com.saude.recife.api.domain.enums;
 
 public enum TipoUsuario {
     PACIENTE,
