@@ -1,4 +1,4 @@
-package com.saude.recife.api.domain.port.in.autenticacao;
+package com.saude.recife.api.application.port.input;
 
 public class ResultadoAutenticacao {
 

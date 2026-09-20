@@ -1,7 +1,5 @@
 package com.saude.recife.api.domain.model;
 
-import com.saude.recife.api.domain.enums.TipoUsuario;
-
 import java.time.LocalDateTime;
 
 public class Usuario {

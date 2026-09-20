@@ -1,7 +1,7 @@
-package com.saude.recife.api.adapter.out.security;
+package com.saude.recife.api.adapter.output.security;
 
 import com.saude.recife.api.domain.model.Usuario;
-import com.saude.recife.api.domain.port.out.TokenPort;
+import com.saude.recife.api.application.port.output.TokenPort;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;

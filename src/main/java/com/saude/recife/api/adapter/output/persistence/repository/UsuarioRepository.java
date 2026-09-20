@@ -1,6 +1,6 @@
-package com.saude.recife.api.adapter.out.persistence.repository;
+package com.saude.recife.api.adapter.output.persistence.repository;
 
-import com.saude.recife.api.adapter.out.persistence.entity.UsuarioEntity;
+import com.saude.recife.api.adapter.output.persistence.entity.UsuarioEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

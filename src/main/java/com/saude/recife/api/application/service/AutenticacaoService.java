@@ -3,11 +3,11 @@ package com.saude.recife.api.application.service;
 import com.saude.recife.api.domain.exception.CredenciaisInvalidasException;
 import com.saude.recife.api.domain.exception.UsuarioInativoException;
 import com.saude.recife.api.domain.model.Usuario;
-import com.saude.recife.api.domain.port.in.autenticacao.AutenticarUsuarioUseCase;
-import com.saude.recife.api.domain.port.in.autenticacao.ResultadoAutenticacao;
-import com.saude.recife.api.domain.port.out.CriptografiaPort;
-import com.saude.recife.api.domain.port.out.TokenPort;
-import com.saude.recife.api.domain.port.out.UsuarioPort;
+import com.saude.recife.api.application.port.input.AutenticarUsuarioUseCase;
+import com.saude.recife.api.application.port.input.ResultadoAutenticacao;
+import com.saude.recife.api.application.port.output.CriptografiaPort;
+import com.saude.recife.api.application.port.output.TokenPort;
+import com.saude.recife.api.application.port.output.UsuarioPort;
 
 public class AutenticacaoService implements AutenticarUsuarioUseCase {
 

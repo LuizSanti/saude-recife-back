@@ -1,4 +1,4 @@
-package com.saude.recife.api.domain.port.out;
+package com.saude.recife.api.application.port.output;
 
 public interface CriptografiaPort {
 

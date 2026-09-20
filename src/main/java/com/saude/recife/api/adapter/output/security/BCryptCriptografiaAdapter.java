@@ -1,6 +1,6 @@
-package com.saude.recife.api.adapter.out.security;
+package com.saude.recife.api.adapter.output.security;
 
-import com.saude.recife.api.domain.port.out.CriptografiaPort;
+import com.saude.recife.api.application.port.output.CriptografiaPort;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

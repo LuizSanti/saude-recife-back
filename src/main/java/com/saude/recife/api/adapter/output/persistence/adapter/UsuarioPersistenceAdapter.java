@@ -1,10 +1,10 @@
-package com.saude.recife.api.adapter.out.persistence.adapter;
+package com.saude.recife.api.adapter.output.persistence.adapter;
 
-import com.saude.recife.api.adapter.out.persistence.entity.UsuarioEntity;
-import com.saude.recife.api.adapter.out.persistence.mapper.UsuarioPersistenceMapper;
-import com.saude.recife.api.adapter.out.persistence.repository.UsuarioRepository;
+import com.saude.recife.api.adapter.output.persistence.entity.UsuarioEntity;
+import com.saude.recife.api.adapter.output.persistence.mapper.UsuarioPersistenceMapper;
+import com.saude.recife.api.adapter.output.persistence.repository.UsuarioRepository;
 import com.saude.recife.api.domain.model.Usuario;
-import com.saude.recife.api.domain.port.out.UsuarioPort;
+import com.saude.recife.api.application.port.output.UsuarioPort;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;

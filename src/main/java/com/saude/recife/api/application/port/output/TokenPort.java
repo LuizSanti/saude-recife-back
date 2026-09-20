@@ -1,4 +1,4 @@
-package com.saude.recife.api.domain.port.out;
+package com.saude.recife.api.application.port.output;
 
 import com.saude.recife.api.domain.model.Usuario;
 

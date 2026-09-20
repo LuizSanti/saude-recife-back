@@ -1,6 +1,6 @@
-package com.saude.recife.api.adapter.out.persistence.entity;
+package com.saude.recife.api.adapter.output.persistence.entity;
 
-import com.saude.recife.api.domain.enums.TipoUsuario;
+import com.saude.recife.api.domain.model.TipoUsuario;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
