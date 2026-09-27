@@ -1,7 +1,11 @@
 package com.saude.recife.api.adapter.output.security;
 
+import com.saude.recife.api.application.port.output.TokenPayload;
+import com.saude.recife.api.domain.model.TipoUsuario;
 import com.saude.recife.api.domain.model.Usuario;
 import com.saude.recife.api.application.port.output.TokenPort;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Optional;
 
 @Component
 public class JwtTokenAdapter implements TokenPort {
@@ -35,5 +40,23 @@ public class JwtTokenAdapter implements TokenPort {
                 .expiration(expiracao)
                 .signWith(chave)
                 .compact();
+    }
+
+    @Override
+    public Optional<TokenPayload> validar(String token) {
+        try {
+            Claims claims = Jwts.parser()
+                    .verifyWith(chave)
+                    .build()
+                    .parseSignedClaims(token)
+                    .getPayload();
+
+            String email = claims.getSubject();
+            TipoUsuario tipoUsuario = TipoUsuario.valueOf(claims.get("tipoUsuario", String.class));
+
+            return Optional.of(new TokenPayload(email, tipoUsuario));
+        } catch (JwtException | IllegalArgumentException e) {
+            return Optional.empty();
+        }
     }
 }
