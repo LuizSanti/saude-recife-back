@@ -1,0 +1,23 @@
+info:
+  name: Login Paciente
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: http://localhost:8080/auth/login
+  body:
+    type: json
+    data: |-
+      {
+        "email": "novo@saude.com",
+        "senha": "123456"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

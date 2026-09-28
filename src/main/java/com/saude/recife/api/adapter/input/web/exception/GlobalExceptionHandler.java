@@ -1,7 +1,9 @@
 package com.saude.recife.api.adapter.input.web.exception;
 
 import com.saude.recife.api.domain.exception.CredenciaisInvalidasException;
+import com.saude.recife.api.domain.exception.EmailJaCadastradoException;
 import com.saude.recife.api.domain.exception.UsuarioInativoException;
+import com.saude.recife.api.domain.exception.UsuarioNaoEncontradoException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -21,6 +23,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsuarioInativoException.class)
     public ResponseEntity<Map<String, String>> handleUsuarioInativo(UsuarioInativoException ex) {
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    public ResponseEntity<Map<String, String>> handleUsuarioNaoEncontrado(UsuarioNaoEncontradoException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<Map<String, String>> handleEmailJaCadastrado(EmailJaCadastradoException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Map.of("erro", ex.getMessage()));
     }
 }

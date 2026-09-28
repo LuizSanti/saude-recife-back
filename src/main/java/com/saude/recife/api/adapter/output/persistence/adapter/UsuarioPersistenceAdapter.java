@@ -7,6 +7,7 @@ import com.saude.recife.api.domain.model.Usuario;
 import com.saude.recife.api.application.port.output.UsuarioPort;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Component
@@ -43,5 +44,25 @@ public class UsuarioPersistenceAdapter implements UsuarioPort {
     @Override
     public boolean existePorEmail(String email) {
         return usuarioRepository.existsByEmail(email);
+    }
+
+    @Override
+    public Usuario atualizar(Usuario usuario) {
+        return salvar(usuario);
+    }
+
+    @Override
+    public void desativar(Long id) {
+        buscarPorId(id).ifPresent(usuario -> {
+            usuario.desativar();
+            salvar(usuario);
+        });
+    }
+
+    @Override
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll().stream()
+                .map(mapper::paraDomain)
+                .toList();
     }
 }

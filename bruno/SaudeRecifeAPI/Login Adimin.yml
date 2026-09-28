@@ -1,11 +1,18 @@
 info:
-  name: Login
+  name: Login Adimin
   type: http
   seq: 1
 
 http:
   method: POST
   url: http://localhost:8080/auth/login
+  body:
+    type: json
+    data: |-
+      {
+        "email": "admin@saude.com",
+        "senha": "admin123"
+      }
   auth: inherit
 
 settings:
