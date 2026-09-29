@@ -1,0 +1,7 @@
+info:
+  name: Especialidade
+  type: folder
+  seq: 2
+
+request:
+  auth: inherit

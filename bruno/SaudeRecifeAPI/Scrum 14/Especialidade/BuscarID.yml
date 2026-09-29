@@ -1,0 +1,18 @@
+info:
+  name: BuscarID
+  type: http
+  seq: 3
+
+http:
+  method: GET
+  url: http://localhost:8080/especialidades/2
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDY1NDk3NywiZXhwIjoxNzkwNzQxMzc3fQ.WxnoKiz2phXYgpIqagvURxF4KWEO7Cvx1yq8LwhzftKf0oM9pAwanozmqXlmQ5R3dUPm5lhFqcF-ol3CTVTRMQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

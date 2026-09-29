@@ -1,0 +1,25 @@
+info:
+  name: Atualizar
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:8080/especialidades/1
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "Cardiologia Clínica",
+        "descricao": "Especialidade cardiovascular atualizada"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDY1NDk3NywiZXhwIjoxNzkwNzQxMzc3fQ.WxnoKiz2phXYgpIqagvURxF4KWEO7Cvx1yq8LwhzftKf0oM9pAwanozmqXlmQ5R3dUPm5lhFqcF-ol3CTVTRMQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
