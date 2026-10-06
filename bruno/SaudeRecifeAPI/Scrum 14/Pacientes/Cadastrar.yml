@@ -1,0 +1,28 @@
+info:
+  name: Cadastrar
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/pacientes
+  body:
+    type: json
+    data: |-
+      {
+        "cpf": "711.289.333-44",
+        "dataNascimento": "1955-08-20",
+        "sexo": "Masculino",
+        "observacoes": "Paciente utilizado no teste da SCRUM 14",
+        "idUsuario": 1
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDczODU1NSwiZXhwIjoxNzkwODI0OTU1fQ.HY8NuGJGoOb63s2b0dbFm-1yZCNGXwdMj0Mw_JpzHT5Ql3AlxTnfMZXbThaj4mY6ZEimzp3zZaaf1qbtzEMgkA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
