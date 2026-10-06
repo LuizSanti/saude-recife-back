@@ -1,0 +1,30 @@
+info:
+  name: Atualizar
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:8080/profissionais/2
+  body:
+    type: json
+    data: |-
+      {
+        "id": 2,
+        "cpf": "700.89.000-20",
+        "conselho": "CRM",
+        "registroProfissional": "78977",
+        "ufRegistro": "RJ",
+        "ativo": true,
+        "idUsuario": 3
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9maXNzaW9uYWxAc2F1ZGUuY29tIiwiaWQiOjIsInRpcG9Vc3VhcmlvIjoiUFJPRklTU0lPTkFMIiwiaWF0IjoxNzkxMjMwMTEzLCJleHAiOjE3OTEzMTY1MTN9.MPK2klEioNe61yTP5LEvXYLtWZy4J2kY8sYlNED2PW57SPdqa10cSe5LG58HP6K47oZq9hR6LH_QcSbkmkaVAA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

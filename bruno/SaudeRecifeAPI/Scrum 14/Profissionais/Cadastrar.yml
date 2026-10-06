@@ -1,0 +1,28 @@
+info:
+  name: Cadastrar
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/profissionais
+  body:
+    type: json
+    data: |-
+      {
+        "cpf": "700.89.000-20",
+        "conselho": "CRM",
+        "registroProfissional": "78977",
+        "ufRegistro": "PE",
+        "idUsuario": 3
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9maXNzaW9uYWxAc2F1ZGUuY29tIiwiaWQiOjIsInRpcG9Vc3VhcmlvIjoiUFJPRklTU0lPTkFMIiwiaWF0IjoxNzkxMjMwMzEwLCJleHAiOjE3OTEzMTY3MTB9.KVM472HhliiqEbdlzQRi02uxe8cKyQ_YabF2qD00LMOYhEXX2gJlfX4dmOJfxDSRN0T5pRsaa7gkqBCcIXIvoQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
