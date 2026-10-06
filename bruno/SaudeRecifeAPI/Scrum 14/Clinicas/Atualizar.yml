@@ -1,0 +1,34 @@
+info:
+  name: Atualizar
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:8080/clinicas/2
+  body:
+    type: json
+    data: |-
+      {
+        "id": 2,
+        "nome": "Clínica Olinda",
+        "cnpj": "18.458.678/0001-90",
+        "telefone": "(81) 3333-777",
+        "email": "contato11@clinicaolinda.com",
+        "logradouro": "Matadouro",
+        "numero": "1000",
+        "bairro": "Peixinhos",
+        "cidade": "Olinda",
+        "uf": "PE",
+        "ativo": true
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDczNjc1MywiZXhwIjoxNzkwODIzMTUzfQ.7xY9nBeFndHtZ-Bdd2sOU_DFuINdykzmBjPuN5ec9JZPXXmsX-8XSnE27JGZsPhcXwVFnz2CfcXOusw_PujLOQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

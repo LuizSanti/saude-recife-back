@@ -1,0 +1,18 @@
+info:
+  name: Inativar
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:8080/clinicas/1
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDczNjc1MywiZXhwIjoxNzkwODIzMTUzfQ.7xY9nBeFndHtZ-Bdd2sOU_DFuINdykzmBjPuN5ec9JZPXXmsX-8XSnE27JGZsPhcXwVFnz2CfcXOusw_PujLOQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
