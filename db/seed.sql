@@ -8,3 +8,14 @@ VALUES (
 true,
 now()
 );
+
+INSERT INTO usuario (nome, email, senha_hash, telefone, tipo_usuario, ativo, criado_em)
+VALUES (
+'Admin Teste',
+'admin@saude.com',
+'$2b$12$s20SI8x4Oxvaq32NQpt1fujsQdSdtYTmqL/pCP4BpXGxgPiWKgHTq',
+'81988888888',
+'ADMIN',
+true,
+now()
+);

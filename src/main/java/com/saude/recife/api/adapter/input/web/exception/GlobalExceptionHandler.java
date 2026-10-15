@@ -1,21 +1,24 @@
 package com.saude.recife.api.adapter.input.web.exception;
 
+import com.saude.recife.api.domain.exception.ClinicaNaoEncontradaException;
+import com.saude.recife.api.domain.exception.CnpjJaCadastradoException;
+import com.saude.recife.api.domain.exception.CpfJaCadastradoException;
 import com.saude.recife.api.domain.exception.CredenciaisInvalidasException;
+import com.saude.recife.api.domain.exception.EmailJaCadastradoException;
+import com.saude.recife.api.domain.exception.EspecialidadeNaoEncontradaException;
+import com.saude.recife.api.domain.exception.PacienteNaoEncontradoException;
+import com.saude.recife.api.domain.exception.ProfissionalNaoEncontradoException;
+import com.saude.recife.api.domain.exception.RegistroProfissionalJaCadastradoException;
 import com.saude.recife.api.domain.exception.UsuarioInativoException;
+import com.saude.recife.api.domain.exception.UsuarioJaVinculadoException;
+import com.saude.recife.api.domain.exception.UsuarioNaoEhPacienteException;
+import com.saude.recife.api.domain.exception.UsuarioNaoEhProfissionalException;
+import com.saude.recife.api.domain.exception.UsuarioNaoEncontradoException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import com.saude.recife.api.domain.exception.EspecialidadeNaoEncontradaException;
-import com.saude.recife.api.domain.exception.ClinicaNaoEncontradaException;
-import com.saude.recife.api.domain.exception.CnpjJaCadastradoException;
-import com.saude.recife.api.domain.exception.CpfJaCadastradoException;
-import com.saude.recife.api.domain.exception.ProfissionalNaoEncontradoException;
-import com.saude.recife.api.domain.exception.RegistroProfissionalJaCadastradoException;
-import com.saude.recife.api.domain.exception.UsuarioJaVinculadoException;
-import com.saude.recife.api.domain.exception.UsuarioNaoEhProfissionalException;
-import com.saude.recife.api.domain.exception.PacienteNaoEncontradoException;
-import com.saude.recife.api.domain.exception.UsuarioNaoEhPacienteException;
 
 import java.util.Map;
 
@@ -23,20 +26,43 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(CredenciaisInvalidasException.class)
-    public ResponseEntity<Map<String, String>> handleCredenciaisInvalidas(CredenciaisInvalidasException ex) {
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+    public ResponseEntity<Map<String, String>> handleCredenciaisInvalidas(
+            CredenciaisInvalidasException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.UNAUTHORIZED)
                 .body(Map.of("erro", ex.getMessage()));
     }
 
     @ExceptionHandler(UsuarioInativoException.class)
-    public ResponseEntity<Map<String, String>> handleUsuarioInativo(UsuarioInativoException ex) {
-        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+    public ResponseEntity<Map<String, String>> handleUsuarioInativo(
+            UsuarioInativoException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.FORBIDDEN)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(UsuarioNaoEncontradoException.class)
+    public ResponseEntity<Map<String, String>> handleUsuarioNaoEncontrado(
+            UsuarioNaoEncontradoException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(EmailJaCadastradoException.class)
+    public ResponseEntity<Map<String, String>> handleEmailJaCadastrado(
+            EmailJaCadastradoException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(Map.of("erro", ex.getMessage()));
     }
 
     @ExceptionHandler(EspecialidadeNaoEncontradaException.class)
-    public ResponseEntity<Map<String, String>>
-    handleEspecialidadeNaoEncontrada(
+    public ResponseEntity<Map<String, String>> handleEspecialidadeNaoEncontrada(
             EspecialidadeNaoEncontradaException ex) {
 
         return ResponseEntity
@@ -45,8 +71,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ClinicaNaoEncontradaException.class)
-    public ResponseEntity<Map<String, String>>
-    handleClinicaNaoEncontrada(
+    public ResponseEntity<Map<String, String>> handleClinicaNaoEncontrada(
             ClinicaNaoEncontradaException ex) {
 
         return ResponseEntity
@@ -55,8 +80,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CnpjJaCadastradoException.class)
-    public ResponseEntity<Map<String, String>>
-    handleCnpjJaCadastrado(
+    public ResponseEntity<Map<String, String>> handleCnpjJaCadastrado(
             CnpjJaCadastradoException ex) {
 
         return ResponseEntity
@@ -65,8 +89,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(ProfissionalNaoEncontradoException.class)
-    public ResponseEntity<Map<String, String>>
-    handleProfissionalNaoEncontrado(
+    public ResponseEntity<Map<String, String>> handleProfissionalNaoEncontrado(
             ProfissionalNaoEncontradoException ex) {
 
         return ResponseEntity
@@ -75,8 +98,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(CpfJaCadastradoException.class)
-    public ResponseEntity<Map<String, String>>
-    handleCpfJaCadastrado(
+    public ResponseEntity<Map<String, String>> handleCpfJaCadastrado(
             CpfJaCadastradoException ex) {
 
         return ResponseEntity
@@ -84,11 +106,8 @@ public class GlobalExceptionHandler {
                 .body(Map.of("erro", ex.getMessage()));
     }
 
-    @ExceptionHandler(
-            RegistroProfissionalJaCadastradoException.class
-    )
-    public ResponseEntity<Map<String, String>>
-    handleRegistroProfissionalJaCadastrado(
+    @ExceptionHandler(RegistroProfissionalJaCadastradoException.class)
+    public ResponseEntity<Map<String, String>> handleRegistroProfissionalJaCadastrado(
             RegistroProfissionalJaCadastradoException ex) {
 
         return ResponseEntity
@@ -97,8 +116,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UsuarioJaVinculadoException.class)
-    public ResponseEntity<Map<String, String>>
-    handleUsuarioJaVinculado(
+    public ResponseEntity<Map<String, String>> handleUsuarioJaVinculado(
             UsuarioJaVinculadoException ex) {
 
         return ResponseEntity
@@ -107,8 +125,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UsuarioNaoEhProfissionalException.class)
-    public ResponseEntity<Map<String, String>>
-    handleUsuarioNaoEhProfissional(
+    public ResponseEntity<Map<String, String>> handleUsuarioNaoEhProfissional(
             UsuarioNaoEhProfissionalException ex) {
 
         return ResponseEntity
@@ -117,8 +134,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(PacienteNaoEncontradoException.class)
-    public ResponseEntity<Map<String, String>>
-    handlePacienteNaoEncontrado(
+    public ResponseEntity<Map<String, String>> handlePacienteNaoEncontrado(
             PacienteNaoEncontradoException ex) {
 
         return ResponseEntity
@@ -127,8 +143,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(UsuarioNaoEhPacienteException.class)
-    public ResponseEntity<Map<String, String>>
-    handleUsuarioNaoEhPaciente(
+    public ResponseEntity<Map<String, String>> handleUsuarioNaoEhPaciente(
             UsuarioNaoEhPacienteException ex) {
 
         return ResponseEntity

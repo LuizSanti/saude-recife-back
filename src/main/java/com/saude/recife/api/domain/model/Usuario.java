@@ -24,6 +24,16 @@ public class Usuario {
         this.criadoEm = criadoEm;
     }
 
+    public void desativar() {
+        this.ativo = false;
+    }
+
+    public void atualizarDados(String nome, String telefone, TipoUsuario tipoUsuario) {
+        this.nome = nome;
+        this.telefone = telefone;
+        this.tipoUsuario = tipoUsuario;
+    }
+
     public Long getId() { return id; }
     public String getNome() { return nome; }
     public String getEmail() { return email; }

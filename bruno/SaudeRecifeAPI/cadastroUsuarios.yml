@@ -1,0 +1,29 @@
+info:
+  name: cadastroUsuarios
+  type: http
+  seq: 2
+
+http:
+  method: POST
+  url: http://localhost:8080/usuarios
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzYXVkZS5jb20iLCJpZCI6MywidGlwb1VzdWFyaW8iOiJBRE1JTiIsImlhdCI6MTc5MDU1NTQxMSwiZXhwIjoxNzkwNjQxODExfQ.nRFl1R1vXdhWN4Z8C9n1A9bGoHQ0PgQF4f0XC2C27vgNeM3oi7suHXinvPcO908KSMQ2Sk0TW1Jl-1iZOCDZoQ
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "Paciente Novo",
+        "email": "novo@saude.com",
+        "senha": "123456",
+        "telefone": "81977777777",
+        "tipoUsuario": "PACIENTE"
+      }
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

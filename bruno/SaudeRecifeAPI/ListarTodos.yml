@@ -1,0 +1,19 @@
+info:
+  name: ListarTodos
+  type: http
+  seq: 8
+
+http:
+  method: GET
+  url: http://localhost:8080/usuarios
+  headers:
+    - name: Authorization
+      value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJub3ZvQHNhdWRlLmNvbSIsImlkIjo0LCJ0aXBvVXN1YXJpbyI6IlBBQ0lFTlRFIiwiaWF0IjoxNzkwNTU1MjU3LCJleHAiOjE3OTA2NDE2NTd9.HNMtnHFM3UvjFC_dDcpJ4p0M1Nhcgs0KCQL5-XIGwA74gPocFfX246tZ4SCM0cAVlM2l237QTFHnL8wVeP6FTg
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

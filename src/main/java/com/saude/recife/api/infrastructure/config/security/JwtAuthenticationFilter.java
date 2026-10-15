@@ -1,5 +1,6 @@
 package com.saude.recife.api.infrastructure.config.security;
 
+import com.saude.recife.api.application.port.output.TokenPayload;
 import com.saude.recife.api.application.port.output.TokenPort;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtAuthenticationFilter
@@ -40,13 +42,17 @@ public class JwtAuthenticationFilter
             String token =
                     authorization.substring(7);
 
-            if (tokenPort.validar(token)) {
+            Optional<TokenPayload> payload =
+                    tokenPort.validar(token);
 
-                String email =
-                        tokenPort.obterEmail(token);
+            if (payload.isPresent()) {
+
+                TokenPayload dados = payload.get();
+
+                String email = dados.email();
 
                 String tipoUsuario =
-                        tokenPort.obterTipoUsuario(token);
+                        dados.tipoUsuario().name();
 
                 SimpleGrantedAuthority authority =
                         new SimpleGrantedAuthority(

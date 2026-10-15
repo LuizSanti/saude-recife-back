@@ -1,5 +1,5 @@
 info:
-  name: Login
+  name: Login Adimin
   type: http
   seq: 1
 
@@ -8,16 +8,6 @@ http:
   url: http://localhost:8080/auth/login
   body:
     type: json
-    data: |+
-      {
-        "email": "profissional@saude.com",
-        "senha": "123456"
-      }
-
-  auth:
-    type: bearer
-    token: ""
-
 settings:
   encodeUrl: true
   timeout: 0
