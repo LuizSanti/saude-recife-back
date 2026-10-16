@@ -1,0 +1,29 @@
+info:
+  name: atualizar
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:8080/pacientes/1
+  body:
+    type: json
+    data: |-
+      {
+        "id": 1,
+        "cpf": "789.222.333-44",
+        "dataNascimento": "2003-08-20",
+        "sexo": "Masculino",
+        "observacoes": "Paciente utilizado no teste da SCRUM 14",
+        "idUsuario": 1
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDczODU1NSwiZXhwIjoxNzkwODI0OTU1fQ.HY8NuGJGoOb63s2b0dbFm-1yZCNGXwdMj0Mw_JpzHT5Ql3AlxTnfMZXbThaj4mY6ZEimzp3zZaaf1qbtzEMgkA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,25 @@
+info:
+  name: Cadastrar.bru
+  type: http
+  seq: 1
+
+http:
+  method: POST
+  url: http://localhost:8080/especialidades
+  body:
+    type: json
+    data: |-
+      {
+        "nome": "Cardiologia",
+        "descricao": "Especialidade relacionada ao sistema cardiovascular"
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDY1NDAxMSwiZXhwIjoxNzkwNzQwNDExfQ.HN9rqpYWqTJkEDLXUfqLQPhjqeIUul58M2GBRfloK514NrD4Q6d0c9-hLTt3S24ba8qSVpEfF4I3EumXxILUCg
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -1,0 +1,18 @@
+info:
+  name: Inativar
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:8080/profissionais/1
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9maXNzaW9uYWxAc2F1ZGUuY29tIiwiaWQiOjIsInRpcG9Vc3VhcmlvIjoiUFJPRklTU0lPTkFMIiwiaWF0IjoxNzkxMjMxMTg1LCJleHAiOjE3OTEzMTc1ODV9.lNP5LPIfAASVxzhj1KRHWu_xRJ9ghrXEEEwZud2ufyRAihzKeAy1RPQn751A9WGd-fNG07w87PzPAIqJObIWhQ
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

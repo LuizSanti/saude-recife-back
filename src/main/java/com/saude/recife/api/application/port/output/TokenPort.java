@@ -9,4 +9,5 @@ public interface TokenPort {
     String gerar(Usuario usuario);
 
     Optional<TokenPayload> validar(String token);
+
 }
