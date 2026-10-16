@@ -1,0 +1,18 @@
+info:
+  name: Inativar
+  type: http
+  seq: 5
+
+http:
+  method: DELETE
+  url: http://localhost:8080/especialidades/2
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0ZXN0ZUBzYXVkZS5jb20iLCJpZCI6MSwidGlwb1VzdWFyaW8iOiJQQUNJRU5URSIsImlhdCI6MTc5MDY1NTA4OSwiZXhwIjoxNzkwNzQxNDg5fQ.hQcyZjWW56Gg23Kn7qvjKULn-G4303o8Oa7FQh5gbO4-wB1LlvfmX-5Z-0scE7Ix93dAQT0o-DLSwH-mErCncA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
