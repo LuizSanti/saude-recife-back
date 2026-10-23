@@ -1,0 +1,22 @@
+info:
+  name: DataSemDisponibilidade
+  type: http
+  seq: 7
+
+http:
+  method: GET
+  url: {{baseUrl}}/disponibilidades?data=2030-01-01
+  params:
+    - name: data
+      value: 2030-01-01
+      type: query
+  auth:
+    type: bearer
+    token:
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

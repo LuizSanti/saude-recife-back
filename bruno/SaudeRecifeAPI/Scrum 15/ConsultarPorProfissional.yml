@@ -1,0 +1,25 @@
+info:
+  name: ConsultarPorProfissional
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: {{baseUrl}}/disponibilidades?data=2026-10-23&profissionalId=2
+  params:
+    - name: data
+      value: 2026-10-23
+      type: query
+    - name: profissionalId
+      value: "2"
+      type: query
+  auth:
+    type: bearer
+    token:
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false
