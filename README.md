@@ -105,3 +105,15 @@ Antes de abrir um Pull Request, leia o [`CONTRIBUTING.md`](./CONTRIBUTING.md) �
 |---|---|---|
 | 1ª | 14/10/2026 | MVP Web (PWA) + Backend + Banco de Dados |
 | 2ª | 09/12/2026 | React Native + Backend + Banco de Dados + IA |
+
+## Migração complementar de agenda e RF11
+
+O diretório `db/` contém também scripts complementares para grade de atendimento e agendamentos, separados de `schema.sql` e `seed.sql`:
+
+- `db/agenda.sql`: cria as tabelas complementares de agenda e a restrição `ex_agendamento_profissional_periodo`, que bloqueia sobreposição de períodos para o mesmo profissional quando ambos os agendamentos estão `CONFIRMADO`.
+- `db/rf11_indice_parcial.sql`: cria o índice parcial adicional exigido pela SCRUM-50 para impedir dois agendamentos não cancelados do mesmo profissional com o mesmo início. Deve ser executado depois de `db/agenda.sql`.
+- `db/agenda_validacoes.sql`: consultas somente de leitura para verificar tabelas, restrições e integridade dos dados.
+
+**Ordem recomendada em banco de desenvolvimento:** faça backup; confirme que as tabelas e chaves-base de `profissional`, `paciente`, `clinica`, `especialidade`, `profissional_clinica`, `profissional_especialidade` e `clinica_especialidade` estão aplicadas; execute `db/agenda.sql`; execute `db/rf11_indice_parcial.sql`; depois execute as consultas de `db/agenda_validacoes.sql`. A extensão `btree_gist` pode exigir permissão administrativa.
+
+Esses scripts são migrações SQL complementares: não substituem nem devem ser executados no lugar de `db/schema.sql` ou `db/seed.sql`. Antes de aplicar em outro ambiente, confirme se as tabelas já existentes têm a mesma estrutura. A migração SQL não implementa, por si só, o tratamento HTTP do conflito na API; isso precisa ser validado quando o endpoint de agendamento estiver integrado.
