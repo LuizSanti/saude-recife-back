@@ -19,8 +19,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.dao.DataIntegrityViolationException;
 
 import java.util.Map;
+import java.sql.SQLException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -149,5 +151,60 @@ public class GlobalExceptionHandler {
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public ResponseEntity<Map<String, String>> handleViolacaoIntegridade(
+            DataIntegrityViolationException ex) {
+
+        if (isConflitoAgendamento(ex)) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(Map.of(
+                            "erro",
+                            "Este horário já está ocupado para o profissional selecionado."
+                    ));
+        }
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of(
+                        "erro",
+                        "Não foi possível concluir a operação devido a um conflito com os dados existentes."
+                ));
+    }
+
+    private boolean isConflitoAgendamento(Throwable ex) {
+        Throwable atual = ex;
+
+        while (atual != null) {
+            String mensagem = atual.getMessage();
+
+            if (mensagem != null &&
+                    (mensagem.contains("uq_agendamento_horario")
+                    || mensagem.contains("ex_agendamento_profissional_periodo"))) {
+                return true;
+            }
+
+            if (atual instanceof SQLException sqlException) {
+                String estado = sqlException.getSQLState();
+
+                if ("23505".equals(estado)
+                        && mensagem != null
+                        && mensagem.contains("uq_agendamento_horario")) {
+                    return true;
+                }
+
+                if ("23P01".equals(estado)
+                        && mensagem != null
+                        && mensagem.contains("ex_agendamento_profissional_periodo")) {
+                    return true;
+                }
+            }
+
+            atual = atual.getCause();
+        }
+
+        return false;
     }
 }
