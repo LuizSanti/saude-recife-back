@@ -36,6 +36,8 @@ public class PacienteService implements PacienteUseCase {
             String observacoes,
             Long idUsuario) {
 
+        cpf = normalizarCpf(cpf);
+
         if (pacientePort.existePorCpf(cpf)) {
             throw new CpfJaCadastradoException(cpf);
         }
@@ -88,6 +90,8 @@ public class PacienteService implements PacienteUseCase {
             String sexo,
             String observacoes) {
 
+        cpf = normalizarCpf(cpf);
+
         Paciente existente = buscarPorId(id);
 
         if (!existente.getCpf().equals(cpf)
@@ -106,5 +110,9 @@ public class PacienteService implements PacienteUseCase {
         );
 
         return pacientePort.salvar(atualizado);
+    }
+
+    private static String normalizarCpf(String cpf) {
+        return cpf == null ? null : cpf.replaceAll("\\D", "");
     }
 }

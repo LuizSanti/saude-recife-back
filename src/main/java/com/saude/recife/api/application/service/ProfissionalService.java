@@ -32,6 +32,8 @@ public class ProfissionalService
             String ufRegistro,
             Long idUsuario) {
 
+        cpf = normalizarCpf(cpf);
+
         if (profissionalPort.existePorCpf(cpf)) {
             throw new CpfJaCadastradoException(cpf);
         }
@@ -107,6 +109,8 @@ public class ProfissionalService
             String registroProfissional,
             String ufRegistro) {
 
+        cpf = normalizarCpf(cpf);
+
         Profissional existente = buscarPorId(id);
 
         if (!existente.getCpf().equals(cpf)
@@ -169,5 +173,9 @@ public class ProfissionalService
                 );
 
         profissionalPort.salvar(inativo);
+    }
+
+    private static String normalizarCpf(String cpf) {
+        return cpf == null ? null : cpf.replaceAll("\\D", "");
     }
 }
