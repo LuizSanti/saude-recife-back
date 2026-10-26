@@ -40,6 +40,7 @@ public class AutenticacaoService implements AutenticarUsuarioUseCase {
 
         String token = tokenPort.gerar(usuario);
 
-        return new ResultadoAutenticacao(token, usuario.getTipoUsuario().name());
+        return new ResultadoAutenticacao(token, usuario.getTipoUsuario().name(),
+                usuario.getId(), usuario.getNome(), usuario.getEmail());
     }
 }

@@ -1,0 +1,11 @@
+name: local
+variables:
+  - name: baseUrl
+    value: http://localhost:8080
+    description: ""
+  - name: tokenAdmin
+    value: ""
+    description: ""
+  - name: tokenPaciente
+    value: ""
+    description: ""
