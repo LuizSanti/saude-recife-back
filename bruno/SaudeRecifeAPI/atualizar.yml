@@ -6,9 +6,6 @@ info:
 http:
   method: PUT
   url: http://localhost:8080/usuarios/1
-  headers:
-    - name: Authorization
-      value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzYXVkZS5jb20iLCJpZCI6MywidGlwb1VzdWFyaW8iOiJBRE1JTiIsImlhdCI6MTc5MDU1NDU4NywiZXhwIjoxNzkwNjQwOTg3fQ.siPHBZJ6l-RqTRYIlepVeJHuxD5bU6SON737otUVTTYd3hO17VRXRIYF1Oy9gE5_CakBrwa8tRJKcorWyF-u3Q
   body:
     type: json
     data: |-
@@ -17,7 +14,9 @@ http:
         "telefone": "81966666666",
         "tipoUsuario": "PACIENTE"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: "{{tokenAdmin}}"
 
 settings:
   encodeUrl: true

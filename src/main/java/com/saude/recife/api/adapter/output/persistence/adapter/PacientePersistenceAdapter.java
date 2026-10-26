@@ -62,4 +62,13 @@ public class PacientePersistenceAdapter
     public boolean existePorUsuario(Long idUsuario) {
         return repository.existsByIdUsuario(idUsuario);
     }
+
+    @Override
+    public Optional<Paciente> buscarPorUsuario(
+            Long idUsuario) {
+
+        return repository
+                .findByIdUsuario(idUsuario)
+                .map(mapper::paraDomain);
+    }
 }

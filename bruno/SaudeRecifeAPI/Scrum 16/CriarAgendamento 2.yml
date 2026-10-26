@@ -1,0 +1,24 @@
+info:
+  name: CriarAgendamento
+  type: http
+  seq: 8
+
+http:
+  method: POST
+  url: "{{baseUrl}}/agendamentos"
+  body:
+    type: json
+    data: |-
+      {
+        "disponibilidadeId": 4
+      }
+  auth:
+    type: bearer
+    token: eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9maXNzaW9uYWxAc2F1ZGUuY29tIiwiaWQiOjIsInRpcG9Vc3VhcmlvIjoiUFJPRklTU0lPTkFMIiwiaWF0IjoxNzkyOTgwNjkyLCJleHAiOjE3OTMwNjcwOTJ9.XXXDtDrFjJykq8Vq-m4XRW6o8Hek7Cchiy8XVScv7etZq_0p-a8FIVhByAk0pl4HIQrKiZI_IfRqfP2S5XnJfA
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

@@ -5,21 +5,23 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8080/usuarios
-  headers:
-    - name: Authorization
-      value: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBzYXVkZS5jb20iLCJpZCI6MywidGlwb1VzdWFyaW8iOiJBRE1JTiIsImlhdCI6MTc5MDU1NTQxMSwiZXhwIjoxNzkwNjQxODExfQ.nRFl1R1vXdhWN4Z8C9n1A9bGoHQ0PgQF4f0XC2C27vgNeM3oi7suHXinvPcO908KSMQ2Sk0TW1Jl-1iZOCDZoQ
+  url: "{{baseUrl}}/auth/cadastro"
   body:
     type: json
     data: |-
       {
-        "nome": "Paciente Novo",
-        "email": "novo@saude.com",
+        "nome": "Paciente Teste 99 ",
+        "email": "paciente99@teste.com",
         "senha": "123456",
-        "telefone": "81977777777",
-        "tipoUsuario": "PACIENTE"
+        "telefone": "81984470885",
+        "cpf": "7998224785",
+        "dataNascimento": "1995-05-10",
+        "sexo": "F",
+        "observacoes": "teste"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: tokenPaciente
 
 settings:
   encodeUrl: true

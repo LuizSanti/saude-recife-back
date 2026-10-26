@@ -11,6 +11,8 @@ public interface PacientePort {
 
     Optional<Paciente> buscarPorId(Long id);
 
+    Optional<Paciente> buscarPorUsuario(Long idUsuario);
+
     List<Paciente> listar();
 
     boolean existePorCpf(String cpf);

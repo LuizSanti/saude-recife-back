@@ -1,0 +1,7 @@
+info:
+  name: Scrum 15
+  type: folder
+  seq: 11
+
+request:
+  auth: inherit
