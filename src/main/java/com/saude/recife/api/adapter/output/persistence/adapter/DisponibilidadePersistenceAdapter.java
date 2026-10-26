@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class DisponibilidadePersistenceAdapter
@@ -58,5 +59,13 @@ public class DisponibilidadePersistenceAdapter
                 horaInicio,
                 horaFim
         ) > 0;
+    }
+
+    @Override
+    public Optional<Disponibilidade> buscarPorId(Long id) {
+
+        return repository
+                .findById(id)
+                .map(mapper::paraDomain);
     }
 }
