@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class AutenticacaoWebMapper {
 
-    public LoginResponse paraLoginResponse(ResultadoAutenticacao resultado) {
-        return new LoginResponse(resultado.getToken(), resultado.getTipoUsuario());
+    public LoginResponse paraLoginResponse(ResultadoAutenticacao r) {
+        return new LoginResponse(r.getToken(), r.getTipoUsuario(),
+                r.getId(), r.getNome(), r.getEmail());
     }
 }
