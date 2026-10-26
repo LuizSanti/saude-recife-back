@@ -5,15 +5,22 @@ info:
 
 http:
   method: POST
-  url: http://localhost:8080/auth/login
+  url: "{{baseUrl}}/auth/login"
   body:
     type: json
     data: |-
       {
-        "email": "novo@saude.com",
+        "email": "paciente1@teste.com",
         "senha": "123456"
       }
-  auth: inherit
+  auth:
+    type: bearer
+    token: tokenPaciente
+
+runtime:
+  scripts:
+    - type: after-response
+      code: bru.setEnvVar("tokenPaciente", res.body.token);
 
 settings:
   encodeUrl: true
