@@ -1,0 +1,21 @@
+info:
+  name: SemToken
+  type: http
+  seq: 7
+
+http:
+  method: POST
+  url: "{{baseUrl}}/agendamentos"
+  body:
+    type: json
+    data: |-
+      {
+        "disponibilidadeId": 4
+      }
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
+  forwardAuthorizationHeader: false

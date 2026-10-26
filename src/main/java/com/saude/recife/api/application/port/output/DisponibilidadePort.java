@@ -5,6 +5,7 @@ import com.saude.recife.api.domain.model.Disponibilidade;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
+import java.util.Optional;
 
 public interface DisponibilidadePort {
     List<Disponibilidade> consultar(
@@ -21,4 +22,5 @@ public interface DisponibilidadePort {
             LocalTime horaInicio,
             LocalTime horaFim
     );
+    Optional<Disponibilidade> buscarPorId(Long id);
 }
