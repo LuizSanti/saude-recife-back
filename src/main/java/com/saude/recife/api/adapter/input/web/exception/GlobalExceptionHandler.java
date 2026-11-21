@@ -4,9 +4,12 @@ import com.saude.recife.api.domain.exception.ClinicaNaoEncontradaException;
 import com.saude.recife.api.domain.exception.CnpjJaCadastradoException;
 import com.saude.recife.api.domain.exception.CpfJaCadastradoException;
 import com.saude.recife.api.domain.exception.CredenciaisInvalidasException;
+import com.saude.recife.api.domain.exception.DisponibilidadeExameNaoEncontradaException;
 import com.saude.recife.api.domain.exception.EmailJaCadastradoException;
 import com.saude.recife.api.domain.exception.EspecialidadeNaoEncontradaException;
+import com.saude.recife.api.domain.exception.HorarioIndisponivelException;
 import com.saude.recife.api.domain.exception.PacienteNaoEncontradoException;
+import com.saude.recife.api.domain.exception.PacienteNaoEncontradoParaUsuarioException;
 import com.saude.recife.api.domain.exception.ProfissionalNaoEncontradoException;
 import com.saude.recife.api.domain.exception.RegistroProfissionalJaCadastradoException;
 import com.saude.recife.api.domain.exception.UsuarioInativoException;
@@ -66,6 +69,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(EspecialidadeNaoEncontradaException.class)
     public ResponseEntity<Map<String, String>> handleEspecialidadeNaoEncontrada(
             EspecialidadeNaoEncontradaException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DisponibilidadeExameNaoEncontradaException.class)
+    public ResponseEntity<Map<String, String>> handleDisponibilidadeExameNaoEncontrada(
+            DisponibilidadeExameNaoEncontradaException ex) {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
@@ -144,6 +156,27 @@ public class GlobalExceptionHandler {
                 .body(Map.of("erro", ex.getMessage()));
     }
 
+    @ExceptionHandler(PacienteNaoEncontradoParaUsuarioException.class)
+    public ResponseEntity<Map<String, String>> handlePacienteNaoEncontradoParaUsuario(
+            PacienteNaoEncontradoParaUsuarioException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of(
+                        "erro",
+                        "Esta conta nao possui cadastro de paciente vinculado. Cadastre um paciente antes de agendar."
+                ));
+    }
+
+    @ExceptionHandler(HorarioIndisponivelException.class)
+    public ResponseEntity<Map<String, String>> handleHorarioIndisponivel(
+            HorarioIndisponivelException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
     @ExceptionHandler(UsuarioNaoEhPacienteException.class)
     public ResponseEntity<Map<String, String>> handleUsuarioNaoEhPaciente(
             UsuarioNaoEhPacienteException ex) {
@@ -156,6 +189,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, String>> handleViolacaoIntegridade(
             DataIntegrityViolationException ex) {
+
+        if (isConflitoAgendamentoExame(ex)) {
+            return ResponseEntity
+                    .status(HttpStatus.CONFLICT)
+                    .body(Map.of(
+                            "erro",
+                            "Este horário já está ocupado para o exame selecionado."
+                    ));
+        }
 
         if (isConflitoAgendamento(ex)) {
             return ResponseEntity
@@ -200,6 +242,29 @@ public class GlobalExceptionHandler {
                         && mensagem.contains("ex_agendamento_profissional_periodo")) {
                     return true;
                 }
+            }
+
+            atual = atual.getCause();
+        }
+
+        return false;
+    }
+
+    private boolean isConflitoAgendamentoExame(Throwable ex) {
+        Throwable atual = ex;
+
+        while (atual != null) {
+            String mensagem = atual.getMessage();
+            if (mensagem != null
+                    && mensagem.contains("uq_agendamento_exame_horario_confirmado")) {
+                return true;
+            }
+
+            if (atual instanceof SQLException sqlException
+                    && "23505".equals(sqlException.getSQLState())
+                    && mensagem != null
+                    && mensagem.contains("uq_agendamento_exame_horario_confirmado")) {
+                return true;
             }
 
             atual = atual.getCause();
