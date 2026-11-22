@@ -300,6 +300,23 @@ A disponibilidade e a configuração dessa documentação devem ser confirmadas 
 
 ## Deploy
 
+Para executar em produção, ative o perfil Spring `prod` (`SPRING_PROFILES_ACTIVE=prod`) e configure as variáveis de ambiente:
+
+| Variável | Obrigatória | Observação |
+|---|---|---|
+| `PORT` | Não | Porta do provedor; padrão `8080`. |
+| `SPRING_DATASOURCE_URL` | Sim | URL JDBC PostgreSQL, por exemplo `jdbc:postgresql://host:5432/database`. |
+| `SPRING_DATASOURCE_USERNAME` | Sim | Usuário da aplicação com permissões mínimas necessárias. |
+| `SPRING_DATASOURCE_PASSWORD` | Sim | Segredo fornecido pelo provedor, nunca versionado. |
+| `JWT_SECRET` | Sim | Segredo aleatório de pelo menos 32 bytes. |
+| `APP_CORS_ALLOWED_ORIGINS` | Sim | Origens exatas do frontend, separadas por vírgula e sem caminhos. |
+| `JWT_EXPIRACAO_MS` | Não | Validade do token em milissegundos; padrão `86400000`. |
+| `APP_TIME_ZONE` | Não | Fuso da agenda; padrão `America/Recife`. |
+
+O perfil de produção falha ao iniciar quando faltam as credenciais ou a lista de origens. `ddl-auto=validate` permanece ativo: prepare o schema e aplique, com backup e revisão, apenas as migrações exigidas pela versão antes de iniciar a API. Não aplique scripts de demonstração em produção.
+
+Antes de liberar agendamentos, valide os vínculos reais em `profissional_clinica`, `profissional_especialidade` e `clinica_especialidade`. A tela de gestão ainda não cadastra esses vínculos; clínicas ou áreas recém-criadas não ficam automaticamente associadas a profissionais. Não associe profissionais a especialidades sem validar a habilitação correspondente.
+
 ### Front-end
 
 Aplicação PWA publicada na Vercel, com configuração de ambiente para apontar para a API.

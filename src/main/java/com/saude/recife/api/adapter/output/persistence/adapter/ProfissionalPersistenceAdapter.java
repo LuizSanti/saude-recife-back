@@ -46,6 +46,12 @@ public class ProfissionalPersistenceAdapter
     }
 
     @Override
+    public Optional<Profissional> buscarPorUsuario(Long idUsuario) {
+        return repository.findByIdUsuario(idUsuario)
+                .map(mapper::paraDomain);
+    }
+
+    @Override
     public List<Profissional> listar() {
 
         return repository.findAll()
@@ -76,5 +82,15 @@ public class ProfissionalPersistenceAdapter
                         conselho,
                         ufRegistro
                 );
+    }
+
+    @Override
+    public boolean estaVinculadoAClinica(Long idProfissional, Long idClinica) {
+        return repository.estaVinculadoAClinica(idProfissional, idClinica);
+    }
+
+    @Override
+    public boolean possuiEspecialidade(Long idProfissional, Long idEspecialidade) {
+        return repository.possuiEspecialidade(idProfissional, idEspecialidade);
     }
 }

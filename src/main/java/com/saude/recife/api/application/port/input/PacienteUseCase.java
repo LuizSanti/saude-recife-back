@@ -17,6 +17,8 @@ public interface PacienteUseCase {
 
     Paciente buscarPorId(Long id);
 
+    Paciente buscarPorUsuario(Long idUsuario);
+
     List<Paciente> listar();
 
     Paciente atualizar(

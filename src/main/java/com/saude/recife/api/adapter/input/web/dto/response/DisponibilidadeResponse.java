@@ -10,6 +10,7 @@ public record DisponibilidadeResponse(
         Long especialidadeId,
         LocalDate data,
         LocalTime horaInicio,
-        LocalTime horaFim
+        LocalTime horaFim,
+        boolean ativo
 ) {
 }

@@ -97,6 +97,16 @@ public class ProfissionalService
     }
 
     @Override
+    public Profissional buscarPorUsuario(Long idUsuario) {
+        return profissionalPort.buscarPorUsuario(idUsuario)
+                .orElseThrow(
+                        () -> new ProfissionalNaoEncontradoParaUsuarioException(
+                                idUsuario
+                        )
+                );
+    }
+
+    @Override
     public List<Profissional> listar() {
         return profissionalPort.listar();
     }

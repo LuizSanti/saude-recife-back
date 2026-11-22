@@ -4,13 +4,17 @@ import com.saude.recife.api.domain.exception.ClinicaNaoEncontradaException;
 import com.saude.recife.api.domain.exception.CnpjJaCadastradoException;
 import com.saude.recife.api.domain.exception.CpfJaCadastradoException;
 import com.saude.recife.api.domain.exception.CredenciaisInvalidasException;
+import com.saude.recife.api.domain.exception.AgendamentoTransicaoInvalidaException;
 import com.saude.recife.api.domain.exception.DisponibilidadeExameNaoEncontradaException;
+import com.saude.recife.api.domain.exception.DisponibilidadeInvalidaException;
+import com.saude.recife.api.domain.exception.DisponibilidadeNaoEncontradaException;
 import com.saude.recife.api.domain.exception.EmailJaCadastradoException;
 import com.saude.recife.api.domain.exception.EspecialidadeNaoEncontradaException;
 import com.saude.recife.api.domain.exception.HorarioIndisponivelException;
 import com.saude.recife.api.domain.exception.PacienteNaoEncontradoException;
 import com.saude.recife.api.domain.exception.PacienteNaoEncontradoParaUsuarioException;
 import com.saude.recife.api.domain.exception.ProfissionalNaoEncontradoException;
+import com.saude.recife.api.domain.exception.ProfissionalNaoEncontradoParaUsuarioException;
 import com.saude.recife.api.domain.exception.RegistroProfissionalJaCadastradoException;
 import com.saude.recife.api.domain.exception.UsuarioInativoException;
 import com.saude.recife.api.domain.exception.UsuarioJaVinculadoException;
@@ -81,6 +85,20 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DisponibilidadeNaoEncontradaException.class)
+    public ResponseEntity<Map<String, String>> handleDisponibilidadeNaoEncontrada(
+            DisponibilidadeNaoEncontradaException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(DisponibilidadeInvalidaException.class)
+    public ResponseEntity<Map<String, String>> handleDisponibilidadeInvalida(
+            DisponibilidadeInvalidaException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("erro", ex.getMessage()));
     }
 
@@ -171,6 +189,24 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HorarioIndisponivelException.class)
     public ResponseEntity<Map<String, String>> handleHorarioIndisponivel(
             HorarioIndisponivelException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(AgendamentoTransicaoInvalidaException.class)
+    public ResponseEntity<Map<String, String>> handleAgendamentoTransicaoInvalida(
+            AgendamentoTransicaoInvalidaException ex) {
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(Map.of("erro", ex.getMessage()));
+    }
+
+    @ExceptionHandler(ProfissionalNaoEncontradoParaUsuarioException.class)
+    public ResponseEntity<Map<String, String>> handleProfissionalNaoEncontradoParaUsuario(
+            ProfissionalNaoEncontradoParaUsuarioException ex) {
 
         return ResponseEntity
                 .status(HttpStatus.CONFLICT)

@@ -154,7 +154,7 @@ CREATE TABLE IF NOT EXISTS public.agendamento (
     inicio TIMESTAMPTZ NOT NULL,
     fim TIMESTAMPTZ NOT NULL,
     status VARCHAR(20) NOT NULL DEFAULT 'CONFIRMADO'
-        CHECK (status IN ('CONFIRMADO', 'CANCELADO')),
+        CHECK (status IN ('CONFIRMADO', 'CANCELADO', 'REALIZADO')),
     codigo_confirmacao VARCHAR(12) NOT NULL,
     criado_em TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
     cancelado_em TIMESTAMPTZ,
@@ -165,6 +165,8 @@ CREATE TABLE IF NOT EXISTS public.agendamento (
         (status = 'CONFIRMADO' AND cancelado_em IS NULL)
         OR
         (status = 'CANCELADO' AND cancelado_em IS NOT NULL)
+        OR
+        (status = 'REALIZADO' AND cancelado_em IS NULL)
     ),
     CONSTRAINT fk_agendamento_profissional_clinica
         FOREIGN KEY (id_profissional, id_clinica)
@@ -216,7 +218,7 @@ COMMENT ON TABLE public.indisponibilidade_profissional IS
 COMMENT ON TABLE public.excecao_agenda IS
     'Exceções pontuais de bloqueio, alteração de horário ou turno extra.';
 COMMENT ON TABLE public.agendamento IS
-    'Agendamentos confirmados ou cancelados; cancelamentos preservam o registro.';
+    'Agendamentos confirmados, cancelados ou realizados; cancelamentos preservam o registro.';
 COMMENT ON TABLE public.configuracao_agendamento IS
     'Parâmetros de negócio do agendamento, incluindo antecedência máxima configurável.';
 

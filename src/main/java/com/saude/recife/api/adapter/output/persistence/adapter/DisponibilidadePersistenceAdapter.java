@@ -1,5 +1,6 @@
 package com.saude.recife.api.adapter.output.persistence.adapter;
 
+import com.saude.recife.api.adapter.output.persistence.entity.DisponibilidadeEntity;
 import com.saude.recife.api.adapter.output.persistence.mapper.DisponibilidadePersistenceMapper;
 import com.saude.recife.api.adapter.output.persistence.repository.DisponibilidadeRepository;
 import com.saude.recife.api.application.port.output.DisponibilidadePort;
@@ -47,18 +48,21 @@ public class DisponibilidadePersistenceAdapter
     @Override
     public boolean existeSobreposicao(
             Long profissionalId,
-            Long clinicaId,
             LocalDate data,
             LocalTime horaInicio,
             LocalTime horaFim) {
 
         return repository.contarSobreposicoes(
                 profissionalId,
-                clinicaId,
                 data,
                 horaInicio,
                 horaFim
         ) > 0;
+    }
+
+    @Override
+    public boolean possuiAssociacoesValidas(Long idDisponibilidade) {
+        return repository.possuiAssociacoesValidas(idDisponibilidade);
     }
 
     @Override
@@ -67,5 +71,57 @@ public class DisponibilidadePersistenceAdapter
         return repository
                 .findById(id)
                 .map(mapper::paraDomain);
+    }
+
+    @Override
+    public Optional<Disponibilidade> buscarPorIdEProfissional(
+            Long id,
+            Long idProfissional) {
+        return repository.findByIdAndIdProfissional(id, idProfissional)
+                .map(mapper::paraDomain);
+    }
+
+    @Override
+    public List<Disponibilidade> listarPorProfissional(Long idProfissional) {
+        return repository.findByIdProfissionalOrderByDataAscHoraInicioAsc(idProfissional)
+                .stream()
+                .map(mapper::paraDomain)
+                .toList();
+    }
+
+    @Override
+    public Disponibilidade salvar(Disponibilidade disponibilidade) {
+        var entity = new DisponibilidadeEntity(
+                disponibilidade.getId(),
+                disponibilidade.getIdProfissional(),
+                disponibilidade.getIdClinica(),
+                disponibilidade.getIdEspecialidade(),
+                disponibilidade.getData(),
+                disponibilidade.getHoraInicio(),
+                disponibilidade.getHoraFim(),
+                disponibilidade.isAtivo()
+        );
+        return mapper.paraDomain(repository.save(entity));
+    }
+
+    @Override
+    public List<Disponibilidade> salvarTodas(List<Disponibilidade> disponibilidades) {
+        return repository.saveAll(
+                        disponibilidades.stream()
+                                .map(disponibilidade -> new DisponibilidadeEntity(
+                                        disponibilidade.getId(),
+                                        disponibilidade.getIdProfissional(),
+                                        disponibilidade.getIdClinica(),
+                                        disponibilidade.getIdEspecialidade(),
+                                        disponibilidade.getData(),
+                                        disponibilidade.getHoraInicio(),
+                                        disponibilidade.getHoraFim(),
+                                        disponibilidade.isAtivo()
+                                ))
+                                .toList()
+                )
+                .stream()
+                .map(mapper::paraDomain)
+                .toList();
     }
 }

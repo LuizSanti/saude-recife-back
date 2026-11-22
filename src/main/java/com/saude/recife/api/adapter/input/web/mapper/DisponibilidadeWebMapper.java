@@ -17,7 +17,8 @@ public class DisponibilidadeWebMapper {
                 disponibilidade.getIdEspecialidade(),
                 disponibilidade.getData(),
                 disponibilidade.getHoraInicio(),
-                disponibilidade.getHoraFim()
+                disponibilidade.getHoraFim(),
+                disponibilidade.isAtivo()
         );
     }
 }
