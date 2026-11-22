@@ -11,6 +11,8 @@ public interface ProfissionalPort {
 
     Optional<Profissional> buscarPorId(Long id);
 
+    Optional<Profissional> buscarPorUsuario(Long idUsuario);
+
     List<Profissional> listar();
 
     boolean existePorCpf(String cpf);
@@ -22,4 +24,8 @@ public interface ProfissionalPort {
             String conselho,
             String ufRegistro
     );
+
+    boolean estaVinculadoAClinica(Long idProfissional, Long idClinica);
+
+    boolean possuiEspecialidade(Long idProfissional, Long idEspecialidade);
 }

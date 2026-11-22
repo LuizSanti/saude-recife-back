@@ -67,6 +67,25 @@ public class AgendamentoPersistenceAdapter
     }
 
     @Override
+    public Optional<Agendamento> buscarPorIdEProfissional(
+            Long idAgendamento,
+            Long idProfissional) {
+
+        return repository
+                .findByIdAndIdProfissional(idAgendamento, idProfissional)
+                .map(mapper::paraDomain);
+    }
+
+    @Override
+    public List<Agendamento> listarPorProfissional(Long idProfissional) {
+        return repository
+                .findByIdProfissionalOrderByInicioAsc(idProfissional)
+                .stream()
+                .map(mapper::paraDomain)
+                .toList();
+    }
+
+    @Override
     public boolean existeConflitoProfissional(
             Long idProfissional,
             OffsetDateTime inicio,

@@ -5,6 +5,7 @@ import com.saude.recife.api.application.port.output.PacientePort;
 import com.saude.recife.api.application.port.output.UsuarioPort;
 import com.saude.recife.api.domain.exception.CpfJaCadastradoException;
 import com.saude.recife.api.domain.exception.PacienteNaoEncontradoException;
+import com.saude.recife.api.domain.exception.PacienteNaoEncontradoParaUsuarioException;
 import com.saude.recife.api.domain.exception.UsuarioJaVinculadoException;
 import com.saude.recife.api.domain.exception.UsuarioNaoEhPacienteException;
 import com.saude.recife.api.domain.exception.UsuarioNaoEncontradoException;
@@ -75,6 +76,12 @@ public class PacienteService implements PacienteUseCase {
                 .orElseThrow(
                         () -> new PacienteNaoEncontradoException(id)
                 );
+    }
+
+    @Override
+    public Paciente buscarPorUsuario(Long idUsuario) {
+        return pacientePort.buscarPorUsuario(idUsuario)
+                .orElseThrow(() -> new PacienteNaoEncontradoParaUsuarioException(idUsuario));
     }
 
     @Override

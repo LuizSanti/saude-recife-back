@@ -46,6 +46,11 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/v3/api-docs", "/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/error").permitAll()
                         .requestMatchers(HttpMethod.GET, "/especialidades", "/especialidades/**").permitAll()
+                        .requestMatchers("/profissionais/me/**").hasRole("PROFISSIONAL")
+                        .requestMatchers("/agendamentos/profissional/**").hasRole("PROFISSIONAL")
+                        .requestMatchers("/agendamentos/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/disponibilidades/profissional/**").hasRole("PROFISSIONAL")
+                        .requestMatchers("/pacientes/me/**").hasRole("PACIENTE")
 
                         // Escrita em cadastros: somente ADMIN
                         .requestMatchers(HttpMethod.POST, "/clinicas/**", "/profissionais/**", "/especialidades/**").hasRole("ADMIN")

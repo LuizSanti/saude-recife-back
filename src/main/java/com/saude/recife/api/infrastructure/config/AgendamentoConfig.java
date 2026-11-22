@@ -4,6 +4,7 @@ import com.saude.recife.api.application.port.input.AgendamentoUseCase;
 import com.saude.recife.api.application.port.output.AgendamentoPort;
 import com.saude.recife.api.application.port.output.DisponibilidadePort;
 import com.saude.recife.api.application.port.output.PacientePort;
+import com.saude.recife.api.application.port.output.ProfissionalPort;
 import com.saude.recife.api.application.port.output.UsuarioPort;
 import com.saude.recife.api.application.service.AgendamentoService;
 import org.springframework.beans.factory.annotation.Value;
@@ -26,6 +27,8 @@ public class AgendamentoConfig {
 
             PacientePort pacientePort,
 
+            ProfissionalPort profissionalPort,
+
             @Value(
                     "${app.time-zone:America/Recife}"
             )
@@ -36,6 +39,7 @@ public class AgendamentoConfig {
                 disponibilidadePort,
                 usuarioPort,
                 pacientePort,
+                profissionalPort,
                 ZoneId.of(timeZone)
         );
     }

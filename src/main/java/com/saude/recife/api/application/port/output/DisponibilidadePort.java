@@ -17,10 +17,22 @@ public interface DisponibilidadePort {
 
     boolean existeSobreposicao(
             Long profissionalId,
-            Long clinicaId,
             LocalDate data,
             LocalTime horaInicio,
             LocalTime horaFim
     );
+
+    boolean possuiAssociacoesValidas(Long idDisponibilidade);
     Optional<Disponibilidade> buscarPorId(Long id);
+
+    Optional<Disponibilidade> buscarPorIdEProfissional(
+            Long id,
+            Long idProfissional
+    );
+
+    List<Disponibilidade> listarPorProfissional(Long idProfissional);
+
+    Disponibilidade salvar(Disponibilidade disponibilidade);
+
+    List<Disponibilidade> salvarTodas(List<Disponibilidade> disponibilidades);
 }

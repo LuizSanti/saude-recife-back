@@ -54,4 +54,9 @@ public class ClinicaPersistenceAdapter implements ClinicaPort {
     public boolean existePorCnpj(String cnpj) {
         return repository.existsByCnpj(cnpj);
     }
+
+    @Override
+    public boolean ofereceEspecialidade(Long idClinica, Long idEspecialidade) {
+        return repository.ofereceEspecialidade(idClinica, idEspecialidade);
+    }
 }

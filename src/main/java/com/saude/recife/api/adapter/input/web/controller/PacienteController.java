@@ -2,13 +2,18 @@ package com.saude.recife.api.adapter.input.web.controller;
 
 import com.saude.recife.api.adapter.input.web.dto.request.AtualizarPacienteRequest;
 import com.saude.recife.api.adapter.input.web.dto.request.PacienteRequest;
+import com.saude.recife.api.adapter.input.web.dto.request.AtualizarPerfilPacienteRequest;
 import com.saude.recife.api.adapter.input.web.dto.response.PacienteResponse;
+import com.saude.recife.api.adapter.input.web.dto.response.PerfilPacienteResponse;
 import com.saude.recife.api.adapter.input.web.mapper.PacienteWebMapper;
 import com.saude.recife.api.application.port.input.PacienteUseCase;
+import com.saude.recife.api.application.port.input.UsuarioUseCase;
+import com.saude.recife.api.domain.exception.UsuarioInativoException;
 import com.saude.recife.api.domain.model.Paciente;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,13 +23,16 @@ import java.util.List;
 public class PacienteController {
 
     private final PacienteUseCase useCase;
+    private final UsuarioUseCase usuarioUseCase;
     private final PacienteWebMapper mapper;
 
     public PacienteController(
             PacienteUseCase useCase,
+            UsuarioUseCase usuarioUseCase,
             PacienteWebMapper mapper) {
 
         this.useCase = useCase;
+        this.usuarioUseCase = usuarioUseCase;
         this.mapper = mapper;
     }
 
@@ -55,6 +63,39 @@ public class PacienteController {
                         .toList();
 
         return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<PerfilPacienteResponse> buscarMeuPerfil(
+            Authentication authentication) {
+        var usuario = usuarioUseCase.buscarPorEmail(authentication.getName());
+        if (!usuario.isAtivo()) {
+            throw new UsuarioInativoException();
+        }
+        return ResponseEntity.ok(mapper.paraPerfilResponse(
+                useCase.buscarPorUsuario(usuario.getId()),
+                usuario
+        ));
+    }
+
+    @PutMapping("/me")
+    public ResponseEntity<PerfilPacienteResponse> atualizarMeuPerfil(
+            @Valid @RequestBody AtualizarPerfilPacienteRequest request,
+            Authentication authentication) {
+        var usuario = usuarioUseCase.buscarPorEmail(authentication.getName());
+        if (!usuario.isAtivo()) {
+            throw new UsuarioInativoException();
+        }
+        var atualizado = usuarioUseCase.atualizar(
+                usuario.getId(),
+                request.nome(),
+                request.telefone(),
+                usuario.getTipoUsuario()
+        );
+        return ResponseEntity.ok(mapper.paraPerfilResponse(
+                useCase.buscarPorUsuario(usuario.getId()),
+                atualizado
+        ));
     }
 
     @GetMapping("/{id}")

@@ -21,6 +21,15 @@ public interface AgendamentoPort {
             Long idPaciente
     );
 
+    Optional<Agendamento> buscarPorIdEProfissional(
+            Long idAgendamento,
+            Long idProfissional
+    );
+
+    List<Agendamento> listarPorProfissional(
+            Long idProfissional
+    );
+
     boolean existeConflitoProfissional(
             Long idProfissional,
             OffsetDateTime inicio,

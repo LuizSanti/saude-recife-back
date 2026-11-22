@@ -43,6 +43,25 @@ public class DisponibilidadeEntity {
     public DisponibilidadeEntity() {
     }
 
+    public DisponibilidadeEntity(
+            Long id,
+            Long idProfissional,
+            Long idClinica,
+            Long idEspecialidade,
+            LocalDate data,
+            LocalTime horaInicio,
+            LocalTime horaFim,
+            boolean ativo) {
+        this.id = id;
+        this.idProfissional = idProfissional;
+        this.idClinica = idClinica;
+        this.idEspecialidade = idEspecialidade;
+        this.data = data;
+        this.horaInicio = horaInicio;
+        this.horaFim = horaFim;
+        this.ativo = ativo;
+    }
+
     public Long getId() {
         return id;
     }
@@ -73,5 +92,9 @@ public class DisponibilidadeEntity {
 
     public boolean isAtivo() {
         return ativo;
+    }
+
+    public void desativar() {
+        this.ativo = false;
     }
 }

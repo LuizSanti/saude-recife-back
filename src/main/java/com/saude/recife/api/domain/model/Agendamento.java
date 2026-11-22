@@ -1,5 +1,7 @@
 package com.saude.recife.api.domain.model;
 
+import com.saude.recife.api.domain.exception.AgendamentoTransicaoInvalidaException;
+
 import java.time.OffsetDateTime;
 
 public class Agendamento {
@@ -62,6 +64,49 @@ public class Agendamento {
 
         this.status = StatusAgendamento.CANCELADO;
         this.canceladoEm = dataCancelamento;
+    }
+
+    public void cancelarPorProfissional(
+            OffsetDateTime dataCancelamento,
+            String motivo) {
+
+        if (status != StatusAgendamento.CONFIRMADO) {
+            throw new AgendamentoTransicaoInvalidaException(
+                    "Somente consultas confirmadas podem ser desmarcadas."
+            );
+        }
+
+        if (!inicio.isAfter(dataCancelamento)) {
+            throw new AgendamentoTransicaoInvalidaException(
+                    "Consultas iniciadas não podem ser desmarcadas."
+            );
+        }
+
+        if (motivo == null || motivo.isBlank()) {
+            throw new AgendamentoTransicaoInvalidaException(
+                    "Informe o motivo do cancelamento."
+            );
+        }
+
+        this.status = StatusAgendamento.CANCELADO;
+        this.canceladoEm = dataCancelamento;
+        this.motivoCancelamento = motivo.trim();
+    }
+
+    public void marcarRealizado(OffsetDateTime momento) {
+        if (status != StatusAgendamento.CONFIRMADO) {
+            throw new AgendamentoTransicaoInvalidaException(
+                    "Somente consultas confirmadas podem ser marcadas como realizadas."
+            );
+        }
+
+        if (fim.isAfter(momento)) {
+            throw new AgendamentoTransicaoInvalidaException(
+                    "A consulta só pode ser concluída após o horário final."
+            );
+        }
+
+        this.status = StatusAgendamento.REALIZADO;
     }
 
     public Long getId() {

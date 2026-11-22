@@ -14,4 +14,6 @@ public interface ClinicaPort {
     List<Clinica> listar();
 
     boolean existePorCnpj(String cnpj);
+
+    boolean ofereceEspecialidade(Long idClinica, Long idEspecialidade);
 }

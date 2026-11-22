@@ -70,7 +70,8 @@ JOIN public.grade_atendimento b
 SELECT id_agendamento, status, cancelado_em
 FROM public.agendamento
 WHERE (status = 'CONFIRMADO' AND cancelado_em IS NOT NULL)
-   OR (status = 'CANCELADO' AND cancelado_em IS NULL);
+   OR (status = 'CANCELADO' AND cancelado_em IS NULL)
+   OR (status = 'REALIZADO' AND cancelado_em IS NOT NULL);
 
 -- 6. Verificar se a antecedência máxima foi configurada.
 -- Zero linhas significa que o projeto ainda precisa definir/inserir o valor.

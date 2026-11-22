@@ -16,6 +16,8 @@ public interface ProfissionalUseCase {
 
     Profissional buscarPorId(Long id);
 
+    Profissional buscarPorUsuario(Long idUsuario);
+
     List<Profissional> listar();
 
     Profissional atualizar(

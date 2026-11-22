@@ -59,6 +59,12 @@ public class UsuarioService implements UsuarioUseCase {
     }
 
     @Override
+    public Usuario buscarPorEmail(String email) {
+        return usuarioPort.buscarPorEmail(email)
+                .orElseThrow(() -> new UsuarioNaoEncontradoException(email));
+    }
+
+    @Override
     public List<Usuario> listarTodos() {
         return usuarioPort.listarTodos();
     }
